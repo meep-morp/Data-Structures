@@ -17,22 +17,44 @@ Stretch: What if you could only use instances of your Stack class to implement t
 """
 
 
+# class Queue:
+#     def __init__(self):
+#         self.size = 0
+#         self.storage = []
+
+#     def __len__(self):
+#         return len(self.storage)
+
+#     def isEmpty(self):
+#         return len(self.storage) == 0
+
+#     def enqueue(self, value):
+#         self.storage.append(value)
+
+#     def dequeue(self):
+#         if self.isEmpty():
+#             return None
+#         else:
+#             return self.storage.pop(0)
+
+# With LinkedList
 class Queue:
     def __init__(self):
         self.size = 0
-        self.storage = []
+        self.storage = LinkedList()
 
     def __len__(self):
-        return len(self.storage)
+        return self.storage.length()
 
     def isEmpty(self):
-        return len(self.storage) == 0
+        return self.storage.head == None and self.storage.tail == None
 
     def enqueue(self, value):
-        self.storage.append(value)
+        self.storage.add_to_tail(Node(value))
 
     def dequeue(self):
         if self.isEmpty():
             return None
         else:
-            return self.storage.pop(0)
+            node = self.storage.remove_head()
+            return node.get_value()
