@@ -1,4 +1,5 @@
 from singly_linked_list import LinkedList, Node
+from stack import Stack
 
 """
 A queue is a data structure whose primary purpose is to store and
@@ -16,7 +17,7 @@ Stretch: What if you could only use instances of your Stack class to implement t
          What would that look like? How many Stacks would you need? Try it!
 """
 
-
+# With arrays
 # class Queue:
 #     def __init__(self):
 #         self.size = 0
@@ -37,24 +38,50 @@ Stretch: What if you could only use instances of your Stack class to implement t
 #         else:
 #             return self.storage.pop(0)
 
+
 # With LinkedList
+# class Queue:
+#     def __init__(self):
+#         self.size = 0
+#         self.storage = LinkedList()
+
+#     def __len__(self):
+#         return self.storage.length()
+
+#     def isEmpty(self):
+#         return self.storage.head == None and self.storage.tail == None
+
+#     def enqueue(self, value):
+#         self.storage.add_to_tail(Node(value))
+
+#     def dequeue(self):
+#         if self.isEmpty():
+#             return None
+#         else:
+#             node = self.storage.remove_head()
+#             return node.get_value()
+
+
+# With Stacks
 class Queue:
     def __init__(self):
         self.size = 0
-        self.storage = LinkedList()
+        self.storage = Stack()
+        self.s2 = Stack()
 
     def __len__(self):
         return self.storage.length()
 
-    def isEmpty(self):
-        return self.storage.head == None and self.storage.tail == None
-
     def enqueue(self, value):
-        self.storage.add_to_tail(Node(value))
+        self.storage.push(value)
 
     def dequeue(self):
-        if self.isEmpty():
+        if self.storage.isEmpty():
             return None
         else:
-            node = self.storage.remove_head()
-            return node.get_value()
+            if (self.s2.isEmpty()):
+                while (self.storage.isEmpty() is not True):
+                    self.s2.push(self.storage.pop())
+
+            self.storage = self.s2
+            return self.storage.pop()
