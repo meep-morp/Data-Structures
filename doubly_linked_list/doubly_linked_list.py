@@ -21,7 +21,7 @@ class DoublyLinkedList:
     def __init__(self, node=None):
         self.head = node
         self.tail = node
-        self.length = 1 if node is not None else 0
+        self.length = 1 if node != None else 0
 
     def __len__(self):
         return self.length
@@ -105,7 +105,7 @@ class DoublyLinkedList:
 
     def move_to_front(self, node):
         if self.length > 1:
-            if node is not self.tail:
+            if node != self.tail:
                 node.prev.next = node.next
                 node.next.prev = node.prev
             else:
@@ -123,7 +123,7 @@ class DoublyLinkedList:
 
     def move_to_end(self, node):
         if self.length > 1:
-            if node is not self.head:
+            if node != self.head:
                 node.prev.next = node.next
                 node.next.prev = node.prev
             else:
@@ -141,10 +141,10 @@ class DoublyLinkedList:
 
     def delete(self, node):
         if self.length > 1:
-            if node is self.head:
+            if node == self.head:
                 node.next.prev = None
                 self.head = node.next
-            elif node is self.tail:
+            elif node == self.tail:
                 node.prev.next = None
                 self.tail = node.prev
             else:
@@ -167,8 +167,31 @@ class DoublyLinkedList:
         if self.length:
             max = self.head.value
             current = self.head
-            while current is not None:
+            while current != None:
                 if current.value > max:
                     max = current.value
                 current = current.next
             return max
+
+# Interview Question
+# Print out all of the numbers in the following array that are divisible by 3:
+
+
+def div_by_3(list):
+    for num in list:
+        if(num % 3 == 0):
+            print(num)
+        else:
+            pass
+
+
+list = [85, 46, 27, 81, 94, 9, 27, 38, 43, 99, 37, 63, 31, 42, 14]
+div_by_3(list)
+# The expected output for the above input is :
+# 27
+# 81
+# 9
+# 27
+# 99
+# 63
+# 42
