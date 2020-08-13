@@ -20,11 +20,12 @@ This part of the project comprises two days:
 
 from tkinter import *
 import random
+from queue import Queue
 # STRETCH
 # Using Tkinter to display the binary tree structure
 master = Tk()
-canvas_width = 1500
-canvas_height = 1300
+canvas_width = 900
+canvas_height = 900
 w = Canvas(master, width=canvas_width, height=canvas_height)
 
 l_r_x = 110
@@ -96,6 +97,7 @@ class BSTNode:
 
 # Return the maximum value found in the tree
 
+
     def get_max(self):
         max = self
         while max.right != None:
@@ -104,7 +106,7 @@ class BSTNode:
         return max.value
 
     # Call the function `fn` on the value of each node
-
+    # Depth First Traversal
     def for_each(self, fn):
         fn(self.value)
         if self.right:
@@ -127,60 +129,74 @@ class BSTNode:
 
     # Part 2 === === === === ===
 
-    # # Print all the values in order from low to high
-    # # Hint:  Use a recursive, depth first traversal
-    # def in_order_print(self):
-    #     pass
+    # Print all the values in order from low to high
+    # Hint: Use a recursive, depth first traversal
+    def in_order_print(self):
+        if self == None:
+            pass
+        if self.left:
+            self.left.in_order_print()
+        print(self.value)
 
-    # # Print the value of every node, starting with the given node,
-    # # in an iterative breadth first traversal
-    # def bft_print(self):
-    #     pass
+        if self.right:
+            self.right.in_order_print()
 
-    # # Print the value of every node, starting with the given node,
-    # # in an iterative depth first traversal
-    # def dft_print(self):
-    #     pass
+    # Print the value of every node, starting with the given node,
+    # in an iterative breadth first traversal
+    def bft_print(self):
+        s = Queue()
+        s.enqueue(self)
 
-    # # Stretch Goals -------------------------
-    # # Note: Research may be required
+        if self.left:
+            self.left.bft_print()
+        if self.right:
+            self.right.bft_print()
+        print(s.dequeue().value)
 
-    # # Print Pre-order recursive DFT
-    # def pre_order_dft(self):
-    #     pass
+    # Print the value of every node, starting with the given node,
+    # in an iterative depth first traversal
+    def dft_print(self):
+        pass
 
-    # # Print Post-order recursive DFT
-    # def post_order_dft(self):
-    #     pass
+    # Stretch Goals -------------------------
+    # Note: Research may be required
+
+    # Print Pre-order recursive DFT
+    def pre_order_print(self):
+        pass
+
+    # Print Post-order recursive DFT
+    def post_order_print(self):
+        pass
 
 
 """
 This code is necessary for testing the `print` methods
 """
-bst = BSTNode(1)
 
 # For Visuals
-for i in range(12):
-    bst.insert(random.randint(1, 99))
+# for i in range(12):
+#     bst.insert(random.randint(1, 99))
+bst = BSTNode(1)
 
-# bst.insert(8)
-# bst.insert(5)
-# bst.insert(7)
-# bst.insert(6)
-# bst.insert(3)
-# bst.insert(4)
-# bst.insert(2)
+bst.insert(8)
+bst.insert(5)
+bst.insert(7)
+bst.insert(6)
+bst.insert(3)
+bst.insert(4)
+bst.insert(2)
 
-# bst.bft_print()
-# bst.dft_print()
+bst.bft_print()
+bst.dft_print()
 
-# print("elegant methods")
-# print("pre order")
-# bst.pre_order_dft()
-# print("in order")
-# bst.in_order_dft()
-# print("post order")
-# bst.post_order_dft()
+print("elegant methods")
+print("pre order")
+bst.pre_order_print()
+print("in order")
+bst.in_order_print()
+print("post order")
+bst.post_order_print()
 
 bst.display()
 w.pack()
