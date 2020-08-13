@@ -207,11 +207,10 @@ class BSTNode:
 """
 This code is necessary for testing the `print` methods
 """
-
+bst = BSTNode(1)
 # For Visuals
 # for i in range(12):
 #     bst.insert(random.randint(1, 99))
-bst = BSTNode(1)
 
 bst.insert(8)
 bst.insert(5)
