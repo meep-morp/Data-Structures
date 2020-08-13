@@ -18,6 +18,20 @@ This part of the project comprises two days:
    on the BSTNode class.
 """
 
+from tkinter import *
+import random
+# STRETCH
+# Using Tkinter to display the binary tree structure
+master = Tk()
+canvas_width = 1500
+canvas_height = 1300
+w = Canvas(master, width=canvas_width, height=canvas_height)
+
+l_r_x = 110
+l_r_y = 85
+l_x = 90
+l_y = 70
+
 
 class BSTNode:
     def __init__(self, value):
@@ -25,21 +39,43 @@ class BSTNode:
         self.left = None
         self.right = None
 
+        self.x = canvas_width / 2
+        self.y = 25
+
     # Insert the given value into the tree
     def insert(self, value):
-        n_value = BSTNode(value)
-        if(self.value > n_value.value):
-            if self.left == None:
-                self.left = n_value
-            else:
+        # check if the value is less than the current node's value
+        if value < self.value:
+            # LEFT
+            # does the current node have a left child?
+            if self.left and self.right:
+                self.left.x = self.x - l_r_x
+                self.left.y = self.y + l_r_y
+
+            if self.left:
                 self.left.insert(value)
-        elif self.value == n_value.value:
-            pass
-        else:
-            if self.right == None:
-                self.right = n_value
+            # otherwise, it doesn't have a left child
+            # we can park the new node here
             else:
+                self.left = BSTNode(value)
+                self.left.x = self.x - l_x
+                self.left.y = self.y + l_y
+        # otherwise the value is greater or equal to the current node's value
+        #  RIGHT
+        else:
+            if self.left and self.right:
+                self.right.x = self.x + l_r_x
+                self.right.y = self.y + l_r_y
+            # does the current node have a right child?
+            if self.right:
+                # if it does, call the right child's `insert` method to repeat the process
                 self.right.insert(value)
+            # otherwise, it doesn't have a right child
+            # we can park the new node here
+            else:
+                self.right = BSTNode(value)
+                self.right.x = self.x + l_x
+                self.right.y = self.y + l_y
 
     # Return True if the tree contains the value
     # False if it does not
@@ -61,9 +97,10 @@ class BSTNode:
 # Return the maximum value found in the tree
 
     def get_max(self):
-        max = self.value
-        while self.right != None:
-            max = self.right
+        max = self
+        while max.right != None:
+            print("max")
+            max = max.right
         return max.value
 
     # Call the function `fn` on the value of each node
@@ -75,7 +112,20 @@ class BSTNode:
         if self.left:
             self.left.for_each(fn)
 
-    # Part 2 -----------------------
+    def display(self):
+        w.create_text(self.x, self.y, fill="black",
+                      font="Times 20 italic bold", text=self.value)
+        w.create_oval(self.x + 20, self.y + 20, self.x - 20, self.y - 20)
+        if self.right:
+            w.create_line(self.x, self.y, self.right.x,
+                          self.y + 55, fill="black")
+            self.right.display()
+        if self.left:
+            w.create_line(self.x, self.y, self.left.x,
+                          self.y + 55, fill="black")
+            self.left.display()
+
+    # Part 2 === === === === ===
 
     # # Print all the values in order from low to high
     # # Hint:  Use a recursive, depth first traversal
@@ -109,13 +159,17 @@ This code is necessary for testing the `print` methods
 """
 bst = BSTNode(1)
 
-bst.insert(8)
-bst.insert(5)
-bst.insert(7)
-bst.insert(6)
-bst.insert(3)
-bst.insert(4)
-bst.insert(2)
+# For Visuals
+for i in range(12):
+    bst.insert(random.randint(1, 99))
+
+# bst.insert(8)
+# bst.insert(5)
+# bst.insert(7)
+# bst.insert(6)
+# bst.insert(3)
+# bst.insert(4)
+# bst.insert(2)
 
 # bst.bft_print()
 # bst.dft_print()
@@ -127,3 +181,7 @@ bst.insert(2)
 # bst.in_order_dft()
 # print("post order")
 # bst.post_order_dft()
+
+bst.display()
+w.pack()
+mainloop()
