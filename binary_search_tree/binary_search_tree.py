@@ -23,8 +23,8 @@ import random
 # STRETCH
 # Using Tkinter to display the binary tree structure
 master = Tk()
-canvas_width = 1500
-canvas_height = 1300
+canvas_width = 900
+canvas_height = 9000
 w = Canvas(master, width=canvas_width, height=canvas_height)
 
 l_r_x = 110
